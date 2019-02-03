@@ -112,22 +112,16 @@ http://www.tooplate.com/view/2082-pure-mix
 				<form class="form-inline" method="POST" action="output_final">
 				  <div class="form-group">
 				    <div class="input-group">
-				        <span class="input-group-addon">Please select</span>
-				            <select name="comp_select" class="selectpicker form-control">
-				              {% for o in data['label'] %}
-				              <option class="btn btn-default btn-lg"  value="{{o}}">{{o}}</option>
-				              {% endfor %}
-				            </select>
+            					{% for o in data['label'] %}
+			            <input type="submit" value={{o}} name={{o}}  class="btn btn-default btn-lg" />
+			            		{% endfor %}
+	
 				    </div>
-				    <button type="submit" class="btn btn-default">Go</button>
-				  </div>
-				</form>
 
-				<form action="output_final" method="POST" >
-					{% for o in data['label'] %}
-					<input type="submit" value={{o}} name={{o}}  class="btn btn-default" />
-					{% endfor %}
-				</form>
+
+				  </div>
+
+			</form>
 
 
 							</div>
@@ -152,7 +146,7 @@ http://www.tooplate.com/view/2082-pure-mix
 		<div class="row">
 
 			<div class="col-md-12 col-sm-12">
-				<p class="wow fadeInUp"  data-wow-delay="0.3s">Copyright © 2016 Your Company Name - Designed by Tooplate</p>
+				<p class="wow fadeInUp"  data-wow-delay="0.3s">Copyright © 2019 Pinspire - Designed by Yingru Xu - Template using Tooplate</p>
 				<ul class="social-icon wow fadeInUp"  data-wow-delay="0.6s">
 					<li><a href="#" class="fa fa-facebook"></a></li>
 					<li><a href="#" class="fa fa-twitter"></a></li>
