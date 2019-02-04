@@ -38,8 +38,8 @@ import sys
 import urllib
 
 
-#nltk.download('stopwords')
-#nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('punkt')
 
 
 
@@ -50,6 +50,8 @@ def grepPinterest(url):
 
     options = webdriver.ChromeOptions()
     driver_path = '/home/ubuntu/bin/chromedriver-linux/chromedriver'
+    #driver_path = '/home/ubuntu/bin/chromedriver'
+
     options.add_argument('--disable-dev-shm-usage')
 
     options.add_argument('--headless')
