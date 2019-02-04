@@ -10,9 +10,10 @@ from inflection import singularize
 import os, sys
 from collections import Counter
 
-from pins import pinspire
-from pins import grep
-from pins import labels
+from src import grep
+#from src import labels
+from src import content
+from src import pattern
 
 app.var = {}
 
@@ -38,6 +39,7 @@ def job_input():
         input_boardname = request.form['input_boardname']
         url = 'https://www.pinterest.com/{}/{}/'.format(input_username, input_boardname)
 
+        data = grep.grepPinterest(url)
         app.var['input_key'] = request.form['input_key']
         app.var['input_username'] = request.form['input_username']
         app.var['input_boardname'] = request.form['input_boardname']
@@ -53,9 +55,7 @@ def job_input():
 
 @app.route('/output', methods=['GET', 'POST'])
 def job_output():
-    #dataLabel, dataDL = pinspire.pinspire(app.var['input_key'], app.var['input_username'], app.var['input_boardname'])
-    #dataLabel, dataDL = None, None
-    dataLabel = labels.naiveBayesCount(app.var['data'])
+    dataLabel = grep.NaiveBayesCount(app.var['data'])
     
     # now scripting all the images
     imageUrl = app.var['data']['url']
@@ -67,13 +67,27 @@ def job_output():
         os.mkdir(imageFolder)
 
     grep.grepImage(imageUrl, imageFolder)
-    dataDL = pinspire.pinspire_simpler(imageFolder)
-        
+    # done with grep, now analyze
+
+
+    # -------- labels ------------------
     app.var['label'] = dataLabel.index.tolist()[:5]
-    if len(dataDL):
-        app.var['label2'] = dataDL
-    
-    
+
+    # -------- image processing --------
+    try:
+        #result_pattern = pattern.predict_pattern(imageFolder, weights = '/home/yingru/Documents/Project/Insight/Pinterest/clothing-pattern-dataset/checkoutpoints/ResNet50_model_weights.h5')
+        result_pattern = pattern.predict_pattern(imageFolder, weights = './weights/ResNet50_model_weights.h5')
+
+        result_content = content.predict_content(imageFolder)
+        result_content.update(result_pattern)
+        dataDL = pd.DataFrame(result_content, index=['prob']).T
+        dataDL.sort_values(by='prob', axis=0, ascending=False, inplace=True)
+        app.var['label2'] = dataDL.index.tolist()[:5]
+    except:
+        dataDL = []
+        app.var['label2'] = []
+        
+
     if len(dataLabel) and len(dataDL):
         result = {'keyword': app.var['input_key'],
                   'username': app.var['input_username'],
@@ -85,13 +99,16 @@ def job_output():
         result = {'keyword': app.var['input_key'],
                  'username': app.var['input_username'],
                  'boardname': app.var['input_boardname'],
-                 'label': dataLabel.index.tolist()[:5]}
+                 'label': dataLabel.index.tolist()[:5],
+                 'label2': dataLabel.index.tolist()[5:10]}
     else:
         result = {'keyword': app.var['input_key'],
-                  'username': app.var['input_username'],
-                  'boardname': app.var['input_boardname']
-        }
-
+                 'username': app.var['input_username'],
+                 'boardname': app.var['input_boardname'],
+                 'label': dataLabel.index.tolist()[:5],
+                 'label2': dataLabel.index.tolist()[5:10]}
+ 
+        
 
     return render_template('output.html',
                             data=result) 
@@ -100,50 +117,26 @@ def job_output():
 
 @app.route('/output_final', methods=['GET', 'POST'])
 def job_output2():
-    #dataLabel, dataDL = pinspire.pinspire(app.var['input_key'], app.var['input_username'], app.var['input_boardname'])
-    #dataLabel, dataDL = None, None
-    for _ in app.var['label']:
-        if request.form.get(_): 
-            select = str(_)
+    try:
+        for _ in app.var['label'] + app.var['label2']:
+            if request.form.get(_):
+                select = str(_)
+
+        query = '{} {}'.format(app.var['input_key'], select)
+        q = '%20'.join(query.split())
+        scope = 'pins'
+        url = 'https://www.pinterest.com/search/{}/?q={}&rs=typed'.format(scope, q)
+        print('final output url: ', url)
+        data = grep.grepPinterest(url)
+
+    except:
+        pass
 
     return render_template('output_display.html',
-                            input_key= app.var['input_key'],
-                            input_username= app.var['input_username'], 
-                            input_boardname= app.var['input_boardname'],
-                            label= str(select)) 
+                        query = query,
+                        data = data,
+                        url = url,
+                        input_key = app.var['input_key'],
+                        input_username = app.var['input_username'],
+                        input_boardname = app.var['input_boardname'])
 
-
-
-'''
-@app.route('/output', methods=['GET', 'POST'])
-def jobs_output():
-    ######################
-    ### user input 
-    ######################
-    input_key = request.args.get('input_key')
-    input_username = request.args.get('input_username')
-    input_boardname = request.args.get('input_boardname')
-    url = 'https://www.pinterest.com/{}/{}/'.format(input_username, input_boardname)
-    data = grep.grepPinterest(url)
-    
-    return render_template('output.html',
-                    data = data,
-                    input_key = input_key,
-                    input_username = input_username,
-                    input_boardname = input_boardname)
-
-@app.route('/output', methods=['GET', 'POST'])
-def job_output2():
-    input_key = request.args.get('input_key')
-    input_username = request.args.get('input_username')
-    input_boardname = request.args.get('input_boardname')
-    url = 'https://www.pinterest.com/{}/{}/'.format(input_username, input_boardname)
-    data = grep.grepPinterest(url)
-    
-    return render_template('output2.html',
-                    data = data,
-                    input_key = input_key,
-                    input_username = input_username,
-                    input_boardname = input_boardname)
-
-'''
