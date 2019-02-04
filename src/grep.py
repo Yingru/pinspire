@@ -19,11 +19,44 @@ import shutil
 
 import unidecode
 import unicodedata
+
 from collections import Counter
 
 
+import math                                                                                                                    
+import nltk
+import os
+
+import string
+import re
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize, sent_tokenize
+from collections import Counter
+import pandas as pd
+import sys
+
+import urllib
+
+
+#nltk.download('stopwords')
+#nltk.download('punkt')
+
+
+
 def grepPinterest(url):
-    driver = webdriver.Chrome('/home/yingru/Documents/Project/Insight/Pinterest/chromedriver')
+    #driver = webdriver.Chrome('/home/yingru/Documents/Project/Insight/Pinterest/chromedriver')
+    #driver = webdriver.Chrome('/home/ubuntu/Pinterest_final/webApp/src/chromedriver')
+    #driver = webdriver.PhantomJS()
+
+    options = webdriver.ChromeOptions()
+    driver_path = '/home/ubuntu/bin/chromedriver-linux/chromedriver'
+    options.add_argument('--disable-dev-shm-usage')
+
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--single-process')
+    driver = webdriver.Chrome(driver_path, chrome_options=options)
+
     driver.get(url)
 
     time.sleep(2)
@@ -77,9 +110,23 @@ def grepPinterest(url):
     data = pd.DataFrame([pinId, pinUrl, pinTags, pinTitle, pinDescription], 
                         index = ['pinId', 'url', 'tags', 'title', 'description'])
 
+    driver.close()
     return data.T
 
     #return pinId, pinUrl, pinTags, pinDescription, pinTitle, pinOrigComment
+
+
+
+
+def grepSearch(query, scope='pins'):
+    """
+    search a query based on key works on pinterest
+    """
+    q = '%20'.join(query.split())
+    url = 'https://www.pinterest.com/search/{}/?q={}&rs=typed'.format(scope, q)
+    #print(url)
+    return grepPinterest(url)
+
 
 
 
@@ -100,6 +147,43 @@ def grepImage(pinUrl, desDir):
             continue
 
 
+#########################################################################
+# now analyze the grepped labels
+def remove_string_special_characters(s):
+    stripped = re.sub('[^\w\s]', '', s)
+    stripped = re.sub('_', '', stripped)
+    
+    stripped = re.sub('\s+', ' ', stripped)
+    stripped = stripped.strip()
+    return stripped
+
+    
+
+def NaiveBayesCount(data):
+    """
+    data: pandas.DataFrame [pinId, url, tags, title, description]
+    """
+    stop_words = set(stopwords.words('english'))
+
+    sentence = '.'.join([i for i in data.description if i])
+    sentence = sent_tokenize(sentence)
+    sentenceClean = [remove_string_special_characters(s) for s in sentence]
+
+
+    total_words = []
+    for sent in sentenceClean:
+        words = word_tokenize(sent)
+        filter_words = [w.lower() for w in words if not w in stop_words]
+        total_words += filter_words
+
+    counts = dict(Counter(total_words))
+    result = pd.DataFrame(counts, index=['freq']).T
+    result.sort_values(by=['freq'], axis=0, ascending=False, inplace=True)
+    return result
+
+
+
+
 
 if __name__ == '__main__':
     userName = input('Please enter your username: ')
@@ -107,11 +191,10 @@ if __name__ == '__main__':
     url =  'https://www.pinterest.com/{}/{}/'.format(userName, boardName)
     folder = './board/{}'.format(boardName)
     data = grepPinterest(url)
-    #data.description.replace({r'[^\x00-\x7F]+':''}, regex=True, inplace=True)
-    #pinId, pinUrl, pinTags, pinDescription, pinTitle, pinOrigComment  = grepPinterest(url)
     print('pinId: ', data.pinId)
     print('pinTags: ', data.tags)
     print(' ')
     print('pinDescription: ', data.description)
     print('pinTitle: ', data.title)
-    #grepImage(pinUrl, folder)
+    result = NaiveBayesCount(data)
+    print(result)

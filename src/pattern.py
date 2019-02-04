@@ -73,6 +73,7 @@ def predict_pattern(imagePath, weights):
 
    
     files = os.listdir(imagePath)
+    print(os.getcws())
     imagePath = [os.path.join(imagePath, f) for f in files if f.endswith('.jpg')]
     length = len(imagePath)
 

@@ -9,6 +9,7 @@ from nltk.tokenize import word_tokenize, sent_tokenize
 from collections import Counter
 import pandas as pd
 import sys
+
 sys.path.append('/home/yingru/Documents/Project/Insight/Pinterest/clothing-pattern-dataset/webApp/pinspire/src/pins')
 import grep
 
