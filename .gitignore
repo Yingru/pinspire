@@ -5,4 +5,7 @@ src/chromedriver
 src/chromedriver_linux64.zip
 src/ghostdriver.log
 src/google-chrome-stable_current_amd64.deb
-
+pureMix/.views.py.swp
+pureMix/__init__.pyc
+pureMix/__pycache__/__init__.cpython-36.pyc
+pureMix/__pycache__/views.cpython-36.pyc
