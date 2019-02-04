@@ -35,14 +35,17 @@ def job_input():
         return render_template('input.html')
     else:
         input_key = request.form['input_key']
-        input_username = request.form['input_username']
-        input_boardname = request.form['input_boardname']
+        dum = request.form['input_username']
+        input_username = dum.split('/')[0]
+        input_boardname = dum.split('/')[1]
+
+        print('input: ', input_username, input_boardname)
         url = 'https://www.pinterest.com/{}/{}/'.format(input_username, input_boardname)
 
         data = grep.grepPinterest(url)
         app.var['input_key'] = request.form['input_key']
-        app.var['input_username'] = request.form['input_username']
-        app.var['input_boardname'] = request.form['input_boardname']
+        app.var['input_username'] = input_username
+        app.var['input_boardname'] = input_boardname
         app.var['url'] = url
         app.var['data'] = data
 
@@ -92,23 +95,18 @@ def job_output():
         result = {'keyword': app.var['input_key'],
                   'username': app.var['input_username'],
                   'boardname': app.var['input_boardname'], 
-                  'label': dataLabel.index.tolist()[:5], 
-                  'label2': dataDL.index.tolist()[:5]}
+                  'label': dataLabel.index.tolist()[:5] + dataDL.index.tolist()[:5]}
 
     elif len(dataLabel):
         result = {'keyword': app.var['input_key'],
                  'username': app.var['input_username'],
                  'boardname': app.var['input_boardname'],
-                 'label': dataLabel.index.tolist()[:5],
-                 'label2': dataLabel.index.tolist()[5:10]}
+                 'label': dataLabel.index.tolist()[:10]}
     else:
         result = {'keyword': app.var['input_key'],
                  'username': app.var['input_username'],
                  'boardname': app.var['input_boardname'],
-                 'label': dataLabel.index.tolist()[:5],
-                 'label2': dataLabel.index.tolist()[5:10]}
- 
-        
+                 'label': ['Error, give us another chance']}
 
     return render_template('output.html',
                             data=result) 
