@@ -138,105 +138,20 @@ http://www.tooplate.com/view/2082-pure-mix
                         <div class="iso-box-section wow fadeInUp" data-wow-delay="1s">
                            <div class="iso-box-wrapper col4-iso-box">
 
-                              <div class="iso-box photoshop branding col-md-4 col-sm-6">
-                                 <div class="portfolio-thumb">
-                                   <img alt=" " class="hCL kVc L4E MIw" src={{data['url'][0]}} >
-                                       <div class="portfolio-overlay">
-                                          <div class="portfolio-item">
-                                                <a href="single-project.html"><i class="fa fa-link"></i></a>
-                                                <h2>Project One</h2>
-                                             </div>
-                                       </div>
-                                 </div>
-                              </div>
 
-                              <div class="iso-box graphic template col-md-4 col-sm-6">
-                                 <div class="portfolio-thumb">
-                                  <img alt=" " class="hCL kVc L4E MIw" src={{data['url'][1]}} >
-                                       <div class="portfolio-overlay">
-                                          <div class="portfolio-item">
-                                                <a href="single-project.html"><i class="fa fa-link"></i></a>
-                                                <h2>Project Two</h2>
-                                             </div>
-                                       </div>
-                                 </div>
-                              </div>
-
-                              <div class="iso-box template graphic col-md-4 col-sm-6">
-                                 <div class="portfolio-thumb">
-                                      <img alt=" " class="hCL kVc L4E MIw" src={{data['url'][2]}} >
-                                       <div class="portfolio-overlay">
-                                          <div class="portfolio-item">
-                                                <a href="single-project.html"><i class="fa fa-link"></i></a>
-                                                <h2>Project Three</h2>
-                                             </div>
-                                       </div>
-                                 </div>
-                              </div>
-
-                              <div class="iso-box graphic template col-md-4 col-sm-6">
-                                 <div class="portfolio-thumb">
-                                      <img alt=" " class="hCL kVc L4E MIw" src={{data['url'][3]}} >
-                                       <div class="portfolio-overlay">
-                                          <div class="portfolio-item">
-                                                <a href="single-project.html"><i class="fa fa-link"></i></a>
-                                                <h2>Project Four</h2>
-                                             </div>
-                                       </div>
-                                 </div>
-                              </div>
-
-                              <div class="iso-box photoshop branding col-md-4 col-sm-6">
-                                 <div class="portfolio-thumb">
-                                      <img alt=" " class="hCL kVc L4E MIw" src={{data['url'][4]}} >
-                                       <div class="portfolio-overlay">
-                                          <div class="portfolio-item">
-                                                <a href="single-project.html"><i class="fa fa-link"></i></a>
-                                                <h2>Project Five</h2>
-                                             </div>
-                                       </div>
-                                 </div>
-                              </div>
-
-                              <div class="iso-box graphic branding col-md-4 col-sm-6">
-                                 <div class="portfolio-thumb">
-                                      <img alt=" " class="hCL kVc L4E MIw" src={{data['url'][5]}} >
-                                       <div class="portfolio-overlay">
-                                          <div class="portfolio-item">
-                                                <a href="single-project.html"><i class="fa fa-link"></i></a>
-                                                <h2>Project Six</h2>
-                                             </div>
-                                       </div>
-                                 </div>
-                              </div>
-
-															<div class="iso-box photoshop branding col-md-4 col-sm-6">
-                                 <div class="portfolio-thumb">
-                                   <img alt=" " class="hCL kVc L4E MIw" src={{data['url'][6]}} >
-                                       <div class="portfolio-overlay">
-                                          <div class="portfolio-item">
-                                                <a href="single-project.html"><i class="fa fa-link"></i></a>
-                                                <h2>Project One</h2>
-                                             </div>
-                                       </div>
-                                 </div>
-                              </div>
-
-
-
-															<div class="iso-box photoshop branding col-md-4 col-sm-6">
-                                 <div class="portfolio-thumb">
-                                   <img alt=" " class="hCL kVc L4E MIw" src={{data['url'][7]}} >
-                                       <div class="portfolio-overlay">
-                                          <div class="portfolio-item">
-                                                <a href="single-project.html"><i class="fa fa-link"></i></a>
-                                                <h2>Project One</h2>
-                                             </div>
-                                       </div>
-                                 </div>
-                              </div>
-
-
+														 {% for o in data['url'] %}
+														 <div class="iso-box photoshop branding col-md-4 col-sm-6">
+																<div class="portfolio-thumb">
+																	<img alt=" " class="hCL kVc L4E MIw" src={{o}} >
+																			<div class="portfolio-overlay">
+																				 <div class="portfolio-item">
+																							 <a href="single-project.html"><i class="fa fa-link"></i></a>
+																							 <h2>Project One</h2>
+																						</div>
+																			</div>
+																</div>
+														 </div>
+ 						            		{% endfor %}
 
 
 

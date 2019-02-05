@@ -31,6 +31,10 @@ http://www.tooplate.com/view/2082-pure-mix
 	<link rel="stylesheet" href="../static/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../static/css/ionicons.min.css">
 
+	<!-- bottom CSS
+	 ================================================== -->
+	<link rel="stylesheet" href="../static/css/buttom.css">
+
 	<!-- Main CSS
    ================================================== -->
 	<link rel="stylesheet" href="../static/css/style.css">
@@ -103,19 +107,28 @@ http://www.tooplate.com/view/2082-pure-mix
 		<div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
       <div class="header-thumb">
 
-		 <form action="/output" method="POST">
-        <p>
+				<p>
          You asked for <b>{{input_key}}</b>, and required to be inspired by
           <b>{{input_username}}/{{input_boardname}}</b>
         </p>
-        <h1 class="wow fadeIn" data-wow-delay="1.6s">Here is your board</h1>
+				<b>Plase make a choice. You might like: </b>
 
 
-    <div>
-      <button type="submit" class="btn btn-default btn-lg">Correct, now amuse me!</button>
-			<button type="text" class="btn btn-default btn-lg"><a href="index">No, that's not right</a></button>
-    </div>
-	</form>
+				<form class="form-inline" method="POST" action="demo_output_final">
+				  <div class="form-group">
+				    <div class="input-group">
+            					{% for o in data['label'] %}
+			            <input type="submit" value={{o}} name={{o}}  class="btn btn-default btn-lg" />
+			            		{% endfor %}
+
+				    </div>
+
+
+				  </div>
+
+			</form>
+
+
 							</div>
 						</div>
 					</div>
@@ -130,47 +143,6 @@ http://www.tooplate.com/view/2082-pure-mix
 </section>
 
 
-<!-- Portfolio section
-================================================== -->
-<section id="portfolio">
-   <div class="container">
-      <div class="row">
-
-         <div class="col-md-12 col-sm-12">
-
-               <!-- iso section -->
-               <div class="iso-section wow fadeInUp" data-wow-delay="2.6s">
-
-                        <!-- iso box section -->
-                        <div class="iso-box-section wow fadeInUp" data-wow-delay="1s">
-                           <div class="iso-box-wrapper col4-iso-box">
-
-
-														 {% for o in data['url'] %}
-														 <div class="iso-box photoshop branding col-md-4 col-sm-6">
-																<div class="portfolio-thumb">
-																	<img alt=" " class="hCL kVc L4E MIw" src={{o}} >
-																			<div class="portfolio-overlay">
-																				 <div class="portfolio-item">
-																							 <a href="single-project.html"><i class="fa fa-link"></i></a>
-																							 <h2>Project One</h2>
-																						</div>
-																			</div>
-																</div>
-														 </div>
- 						            		{% endfor %}
-
-
-                            </div>
-                        </div>
-
-               </div>
-
-         </div>
-
-      </div>
-   </div>
-</section>
 
 <!-- Footer section
 ================================================== -->
