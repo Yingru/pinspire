@@ -78,14 +78,16 @@ def job_output():
 
     # -------- image processing --------
     try:
-        #result_pattern = pattern.predict_pattern(imageFolder, weights = '/home/yingru/Documents/Project/Insight/Pinterest/clothing-pattern-dataset/checkoutpoints/ResNet50_model_weights.h5')
+        print('now start with image process: ')
         result_pattern = pattern.predict_pattern(imageFolder, weights = './weights/ResNet50_model_weights.h5')
-
+        print('image pattern classification done successfully: ')
         result_content = content.predict_content(imageFolder)
+        print('image content classification done successfully: ')
         result_content.update(result_pattern)
         dataDL = pd.DataFrame(result_content, index=['prob']).T
         dataDL.sort_values(by='prob', axis=0, ascending=False, inplace=True)
         app.var['label2'] = dataDL.index.tolist()[:5]
+        print('successful on the image classification!')
     except:
         dataDL = []
         app.var['label2'] = []

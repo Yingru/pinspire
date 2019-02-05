@@ -38,8 +38,8 @@ import sys
 import urllib
 
 
-nltk.download('stopwords')
-nltk.download('punkt')
+#nltk.download('stopwords')
+#nltk.download('punkt')
 
 
 

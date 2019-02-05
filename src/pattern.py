@@ -73,7 +73,7 @@ def predict_pattern(imagePath, weights):
 
    
     files = os.listdir(imagePath)
-    print(os.getcws())
+    print(os.getcwd())
     imagePath = [os.path.join(imagePath, f) for f in files if f.endswith('.jpg')]
     length = len(imagePath)
 
@@ -105,7 +105,9 @@ def predict_pattern(imagePath, weights):
 
 if __name__ == '__main__':
     image_path = '../Boards/interior/'
-    weights = '../checkoutpoints/ResNet50_model_weights.h5'
+    image_path = '/home/ubuntu/Pinterest_final/webApp/board/art'
+    image_path = '/home/ubuntu/Pinterest_final/webApp/board/interior'
+    weights = '/home/ubuntu/Pinterest_final/webApp/weights/ResNet50_model_weights.h5'
     result = predict_pattern(image_path, weights)
     result = sorted(result.items(), key=lambda item: item[1])
     print(result)
