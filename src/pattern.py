@@ -66,6 +66,23 @@ def train_pattern(TrainDir, batch_size=8, num_epochs=5, weight=None, checkpoint=
                                             callbacks = callback_list)
     
 
+def predict_pattern_validation(TestDir, batch_size=8, weights=None):
+    test_datagen = ImageDataGenerator(preprocessing_function = preprocess_input)
+    test_generator = test_datagen.flow_from_directory(TestDir, 
+                                                        target_size = (HEIGHT, WIDTH),
+                                                        batch_size = batch_size)
+
+    num_test_images = 400
+    finetune_model = build_finetune_model()
+    finetune_model.load_weights(weights)
+
+    test_generator.reset()
+    pred = finetune_mode.predict_generator(test_generator, verbose=1)
+    print(pred)
+
+
+    
+
 
 def predict_pattern(imagePath, weights):
     finetune_model = build_finetune_model()
@@ -107,7 +124,8 @@ if __name__ == '__main__':
     image_path = '../Boards/interior/'
     image_path = '/home/ubuntu/Pinterest_final/webApp/board/art'
     image_path = '/home/ubuntu/Pinterest_final/webApp/board/interior'
+    image_path = '/home/yingru/Documents/Project/Insight/Pinterest/clothing-pattern-dataset/FingerCamera'
     weights = '/home/ubuntu/Pinterest_final/webApp/weights/ResNet50_model_weights.h5'
-    result = predict_pattern(image_path, weights)
+    result = predict_pattern_validation(image_path, weights)
     result = sorted(result.items(), key=lambda item: item[1])
     print(result)

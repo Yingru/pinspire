@@ -49,8 +49,8 @@ def grepPinterest(url):
     #driver = webdriver.PhantomJS()
 
     options = webdriver.ChromeOptions()
-    driver_path = '/home/ubuntu/bin/chromedriver-linux/chromedriver'
-    #driver_path = '/home/yingru/Documents/Project/Insight/Pinterest/Pinterest_final/webApp/src/chromedriver'
+    #driver_path = '/home/ubuntu/bin/chromedriver-linux/chromedriver'
+    driver_path = '/home/yingru/Documents/Project/Insight/Pinterest/Pinterest_final/webApp/src/chromedriver'
     
     #driver_path = '/home/ubuntu/bin/chromedriver'
 
