@@ -196,7 +196,7 @@ def job_output_demo():
     dataLabel = pd.read_csv('{}/freq_dataLabel_{}.csv'.format(imageFolder, app.var['input_boardname']))
     dataDL = pd.read_csv('{}/prob_dataDL_{}.csv'.format(imageFolder, app.var['input_boardname']))
     app.var['label'] = list(dataLabel['Unnamed: 0'][:5]) + list(dataDL['Unnamed: 0'][:5])
-    print(app.var['label'])
+    #print(app.var['label'])
     result = {'keyword': app.var['input_key'],
               'username': app.var['input_username'],
               'boardname': app.var['input_boardname'], 
@@ -213,12 +213,10 @@ def job_output_demo():
 def job_output2_demo():
     try:
         for _ in app.var['label']:
-            print(_)
+            #print(_)
             if request.form.get(_):
                 select = str(_)
 
-        print('first what??', len(select))
-        print('second what??', app.var['input_key'], len(app.var['input_key']))
         query = '{} {}'.format(app.var['input_key'], select)
         q = '%20'.join(query.split())
         scope = 'pins'
@@ -227,7 +225,6 @@ def job_output2_demo():
 
         imageFolder = 'board/{}'.format(app.var['input_boardname'])
         data = pd.read_csv('{}/dataLabel_{}_{}.csv'.format(imageFolder, app.var['input_key'], select))
-        print('final!!!', data)
     except:
         pass 
 

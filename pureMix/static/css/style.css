@@ -6,7 +6,7 @@ http://www.tooplate.com/view/2082-pure-mix
 
 */
 
-/* Body 
+/* Body
 ------------------------------------- */
 body {
 		background: #ffffff;
@@ -182,7 +182,7 @@ nav a {
   text-decoration: none;
 }
 
-.navicon {  
+.navicon {
   position: relative;
   right: 0;
   display: -webkit-flex;
@@ -258,7 +258,7 @@ a.icon {
   padding-right: 20px;
 }
 
-.intro-inner {  
+.intro-inner {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -407,6 +407,7 @@ a.icon {
   background: #ffffff;
   border: 10px solid #f9f9f9;
   padding: 62px 20px 62px 20px;
+	height: 100%;
 }
 
 .header-one .header-thumb,
@@ -460,7 +461,7 @@ a.icon {
   position: relative;
   overflow: hidden;
   margin: 0;
-} 
+}
 
 #portfolio .portfolio-thumb .portfolio-overlay {
   background: #141414;
@@ -558,7 +559,7 @@ a.icon {
     width: 100%;
     height: 100%;
     overflow: hidden;
-} 
+}
 
 .fluid-img {
     width: 100%;
@@ -603,7 +604,7 @@ a.icon {
 
 /* blog & single post section styles
 /* ========================================== */
-#blog, 
+#blog,
 #single-post {
   padding-top: 4rem;
   padding-bottom: 6rem;
@@ -870,4 +871,5 @@ footer {
 
 @media (max-width: 450px) {
   .intro-inner {top: 50%;}
+
 }
