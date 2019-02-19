@@ -40,12 +40,12 @@ options.add_argument('--no-sandbox')
 options.add_argument('--single-process')
 
 class PinterestBoard(object):
-    def __init__(self, userName, boardName):
+    def __init__(self, userName, boardName, folder):
         '''
         Input -- userName, boardName [string, string]: pinterest username and boardname that user provides
         '''
         self.url = 'https://www.pinterest.com/{}/{}/'.format(userName, boardName)
-        self.folder = '../board/{}'.format(boardName)
+        self.folder = '{}/{}'.format(folder, boardName)
         self.data = []
 
     def grep(self):
@@ -265,7 +265,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    board = PinterestBoard(args.user, args.board)
+    board = PinterestBoard(args.user, args.board, '../board')
     board.grep()
     board.grepImage()
     print(board.naiveBayesCount()[:5])
