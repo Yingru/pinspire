@@ -1,0 +1,17 @@
+pandas
+numpy
+scipy
+matplotlib
+keras
+tensorflow
+seaborn
+beautifulsoup4
+ipython
+lxml
+requests
+selenium  
+nltk
+wget 
+cv2
+webcolors
+Unidecode
