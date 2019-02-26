@@ -1,11 +1,11 @@
 - [Pinspire](#pinspire)
   * [1. requirements (python=3.6)](#1-requirements--python-36-)
-  * [2. file organization:](#2-file-organization-)
-  * [3. For running in local](#3-for-running-in-local)
-  * [4. Model introduction](#4-model-introduction)
+  * [2. file organization](#2-file-organization)
+  * [3. running in local](#3-running-in-local)
+  * [4. model introduction](#4-model-introduction)
 
 
-# Pinspire
+# [Pinspire](http://www.ppinspire.com/)
 
 a personalized search engine that makes recommendations on image search based on collections of images
 
@@ -27,8 +27,7 @@ unzip chromedriver_linux64.zip
 conda install flask gunicorn Pillow inflection
 ```
 **Note**: if you would like to use the package in a server, you need to use the selenium with headless chrome.
-- inorder to use selenium with headless chrome (tested on Ubuntu-14)
-- [stackoverflow](https://stackoverflow.com/questions/49323099/webdriverexception-message-service-chromedriver-unexpectedly-exited-status-co)
+- [inorder to use selenium with headless chrome (tested on Ubuntu-14)](https://stackoverflow.com/questions/49323099/webdriverexception-message-service-chromedriver-unexpectedly-exited-status-co)
 
 ```
 sudo apt-get update -f
@@ -38,7 +37,7 @@ sudo apt-get install libgconf-2-4
 ```
 
 
-## 2. file organization:
+## 2. file organization
 ```
     pinspire/
     |
@@ -59,7 +58,7 @@ sudo apt-get install libgconf-2-4
     |--- weights/    # weights files for store the weights of the CNN classifiers: content, pattern, artStyle
 ```
 
-## 3. For running in local 
+## 3. running in local 
 ### 3.1 one key command for launching the webapp and testing the interactive UI
 - `./run.py`
 - open your browser and go to your server. If you launch it locally, go to `http://0.0.0.0:5000`
@@ -74,4 +73,5 @@ python grepInfo.py --user $user --board $board
 python classifier.py --classifier (content[default], pattern, artStyle)
 ```
 
-## 4. Model introduction
+## 4. model introduction
+Please check the [Wiki](https://github.com/Yingru/pinspire/wiki) for more detailed explanation of the model
